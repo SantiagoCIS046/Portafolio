@@ -1,0 +1,11 @@
+ID_Empleado,Nombre,Apellido,Departamento,Mes,Ventas_Realizadas,Monto_Total_Ventas,Comision
+E1001,Juan,Pérez,Electrónica,Enero,15,12500.00,1250.00
+E1001,Juan,Pérez,Electrónica,Febrero,12,9800.00,980.00
+E1002,María,Gómez,Muebles,Enero,8,15600.00,1560.00
+E1002,María,Gómez,Muebles,Febrero,10,21000.00,2100.00
+E1003,Carlos,Rodríguez,Electrodomésticos,Enero,5,8500.00,850.00
+E1003,Carlos,Rodríguez,Electrodomésticos,Febrero,7,12000.00,1200.00
+E1004,Laura,Sánchez,Electrónica,Enero,20,18000.00,1800.00
+E1004,Laura,Sánchez,Electrónica,Febrero,18,16200.00,1620.00
+E1005,Pedro,Martínez,Muebles,Enero,6,9500.00,950.00
+E1005,Pedro,Martínez,Muebles,Febrero,9,14500.00,1450.00

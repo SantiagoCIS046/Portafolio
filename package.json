@@ -1,0 +1,17 @@
+{
+  "name": "portafolio",
+  "version": "1.0.0",
+  "description": "Portafolio de Santiago",
+  "main": "index.html",
+  "scripts": {
+    "dev": "echo 'No dev server needed for static site'",
+    "build": "echo 'No build step needed'"
+  },
+  "keywords": [
+    "portafolio",
+    "html",
+    "static"
+  ],
+  "author": "Santiago",
+  "license": "ISC"
+}

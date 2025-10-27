@@ -1,0 +1,17 @@
+{
+  "dependencies": {
+    "express": "^5.1.0"
+  },
+  "name": "api-tareas",
+  "version": "1.0.0",
+  "type": "module",
+  "main": "App.js",
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "App.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "description": ""
+}

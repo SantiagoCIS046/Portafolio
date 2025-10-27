@@ -1,0 +1,854 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SecureEncrypt - Encriptación Avanzada</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    />
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      body {
+        font-family: "Inter", sans-serif;
+        background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+        color: #333;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+      }
+      .header {
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+        padding: 20px 0;
+        position: sticky;
+        top: 0;
+        z-index: 100;
+      }
+      .header-content {
+        max-width: 1200px;
+        margin: 0 auto;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0 20px;
+      }
+      .logo {
+        font-size: 1.8em;
+        font-weight: 700;
+        color: #1e3c72;
+        display: flex;
+        align-items: center;
+      }
+      .logo i {
+        margin-right: 10px;
+        color: #2a5298;
+      }
+      .nav {
+        display: flex;
+        gap: 30px;
+      }
+      .nav a {
+        text-decoration: none;
+        color: #333;
+        font-weight: 500;
+        transition: color 0.3s;
+      }
+      .nav a:hover {
+        color: #2a5298;
+      }
+      .main {
+        flex: 1;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 40px 20px;
+        width: 100%;
+      }
+      .hero {
+        text-align: center;
+        margin-bottom: 50px;
+        color: white;
+      }
+      .hero h1 {
+        font-size: 3em;
+        margin-bottom: 20px;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+      }
+      .hero p {
+        font-size: 1.2em;
+        opacity: 0.9;
+        max-width: 600px;
+        margin: 0 auto;
+      }
+      .container {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+        gap: 30px;
+        margin-bottom: 50px;
+      }
+      .card {
+        background: rgba(255, 255, 255, 0.95);
+        border-radius: 15px;
+        padding: 30px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s, box-shadow 0.3s;
+      }
+      .card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+      }
+      .card h2 {
+        font-size: 1.5em;
+        margin-bottom: 20px;
+        color: #1e3c72;
+        display: flex;
+        align-items: center;
+      }
+      .card h2 i {
+        margin-right: 10px;
+        color: #2a5298;
+      }
+      .card p {
+        margin-bottom: 20px;
+        color: #666;
+      }
+      button {
+        padding: 12px 25px;
+        margin: 10px 5px;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        font-size: 1em;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        display: inline-flex;
+        align-items: center;
+      }
+      button i {
+        margin-right: 8px;
+      }
+      button:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+      }
+      button:active {
+        transform: translateY(0);
+      }
+      #output,
+      #encryptedOutput,
+      #decryptedOutput {
+        margin-top: 20px;
+        padding: 15px;
+        background: #f8f9fa;
+        border: 1px solid #e9ecef;
+        border-radius: 8px;
+        white-space: pre-wrap;
+        font-family: "Courier New", monospace;
+        color: #333;
+        min-height: 50px;
+        max-height: 200px;
+        overflow-y: auto;
+      }
+      input,
+      textarea {
+        width: 100%;
+        padding: 12px;
+        margin: 10px 0;
+        border: 2px solid #e9ecef;
+        border-radius: 8px;
+        background: #fff;
+        color: #333;
+        font-size: 1em;
+        transition: border-color 0.3s;
+        resize: vertical;
+      }
+      input:focus,
+      textarea:focus {
+        outline: none;
+        border-color: #667eea;
+        box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+      }
+      input::placeholder,
+      textarea::placeholder {
+        color: #adb5bd;
+      }
+      .footer {
+        background: rgba(255, 255, 255, 0.9);
+        padding: 30px 0;
+        text-align: center;
+        color: #666;
+      }
+      .footer-content {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 20px;
+      }
+      .footer p {
+        margin-bottom: 10px;
+      }
+      .footer-links {
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+        margin-top: 15px;
+      }
+      .footer-links a {
+        color: #667eea;
+        text-decoration: none;
+        font-weight: 500;
+      }
+      .footer-links a:hover {
+        text-decoration: underline;
+      }
+      @media (max-width: 768px) {
+        .header-content {
+          flex-direction: column;
+          gap: 20px;
+        }
+        .nav {
+          gap: 20px;
+        }
+        .hero h1 {
+          font-size: 2em;
+        }
+        .container {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="header">
+      <div class="header-content">
+        <div class="logo">
+          <i class="fas fa-shield-alt"></i>
+          SecureEncrypt
+        </div>
+        <nav class="nav">
+          <a href="#home">Inicio</a>
+          <a href="#encrypt">Encriptar</a>
+          <a href="#decrypt">Desencriptar</a>
+          <a href="#about">Acerca de</a>
+        </nav>
+      </div>
+    </header>
+
+    <main class="main">
+      <section class="hero" id="home">
+        <h1>Encriptación Avanzada y Segura</h1>
+        <p>
+          Protege tus mensajes confidenciales con algoritmos de encriptación de
+          última generación. Fácil de usar, seguro y confiable.
+        </p>
+      </section>
+
+      <div class="container">
+        <div class="card">
+          <h2><i class="fas fa-tools"></i>Funciones Básicas</h2>
+          <p>
+            Ejecuta las funciones predefinidas de encriptación y procesamiento
+            de listas.
+          </p>
+          <button onclick="runContrasena()">
+            <i class="fas fa-key"></i>Ejecutar Desencriptado de Contraseña
+          </button>
+          <button onclick="runProcessList()">
+            <i class="fas fa-list"></i>Ejecutar Procesamiento de Lista
+          </button>
+          <div id="output"></div>
+        </div>
+
+        <div class="card" id="encrypt">
+          <h2><i class="fas fa-lock"></i>Encriptar Texto</h2>
+          <p>
+            Ingresa el texto que deseas encriptar y obtén una versión segura.
+          </p>
+          <textarea
+            id="inputText"
+            placeholder="Ingresa el texto a encriptar aquí..."
+            rows="4"
+          ></textarea>
+          <button onclick="encryptText()">
+            <i class="fas fa-lock"></i>Encriptar
+          </button>
+          <div id="encryptedOutput"></div>
+        </div>
+
+        <div class="card" id="decrypt">
+          <h2><i class="fas fa-unlock"></i>Desencriptar Texto</h2>
+          <p>
+            Ingresa el texto encriptado y la contraseña para recuperar el
+            mensaje original.
+          </p>
+          <textarea
+            id="decryptInput"
+            placeholder="Ingresa el texto encriptado aquí..."
+            rows="4"
+          ></textarea>
+          <input
+            type="password"
+            id="password"
+            placeholder="Ingresa la contraseña"
+          />
+          <button onclick="decryptText()">
+            <i class="fas fa-unlock"></i>Desencriptar
+          </button>
+          <div id="decryptedOutput"></div>
+        </div>
+
+        <div class="card" id="about">
+          <h2><i class="fas fa-info-circle"></i>Acerca de SecureEncrypt</h2>
+          <p>
+            SecureEncrypt utiliza algoritmos avanzados de encriptación para
+            proteger tus datos. Todas las operaciones se realizan localmente en
+            tu navegador, garantizando la privacidad de tu información.
+          </p>
+          <p><strong>Características:</strong></p>
+          <ul>
+            <li>Encriptación simétrica avanzada</li>
+            <li>Procesamiento local (sin envío de datos)</li>
+            <li>Interfaz intuitiva y responsive</li>
+            <li>Compatible con múltiples idiomas</li>
+          </ul>
+        </div>
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-content">
+        <p>&copy; 2023 SecureEncrypt. Todos los derechos reservados.</p>
+        <p>Mantén tus datos seguros con tecnología de encriptación avanzada.</p>
+        <div class="footer-links">
+          <a href="#privacy">Política de Privacidad</a>
+          <a href="#terms">Términos de Servicio</a>
+          <a href="#contact">Contacto</a>
+        </div>
+      </div>
+    </footer>
+
+    <script src="Contrasena.js"></script>
+    <script src="processList.js"></script>
+    <script>
+      const letters = [
+        "<",
+        ">",
+        "(",
+        ")",
+        "{",
+        "}",
+        "+",
+        "-",
+        "'",
+        "`",
+        "´",
+        '"',
+        "º",
+        "ª",
+        "@",
+        ".",
+        ",",
+        ":",
+        ";",
+        "0",
+        "1",
+        "2",
+        "3",
+        "4",
+        "5",
+        "6",
+        "7",
+        "8",
+        "9",
+        " ",
+        "á",
+        "Á",
+        "é",
+        "É",
+        "í",
+        "Í",
+        "ó",
+        "Ó",
+        "ú",
+        "Ú",
+        "a",
+        "A",
+        "b",
+        "B",
+        "c",
+        "C",
+        "d",
+        "D",
+        "e",
+        "E",
+        "f",
+        "F",
+        "g",
+        "G",
+        "h",
+        "H",
+        "i",
+        "I",
+        "j",
+        "J",
+        "k",
+        "K",
+        "l",
+        "L",
+        "m",
+        "M",
+        "n",
+        "N",
+        "ñ",
+        "Ñ",
+        "o",
+        "O",
+        "p",
+        "P",
+        "q",
+        "Q",
+        "r",
+        "R",
+        "s",
+        "S",
+        "t",
+        "T",
+        "u",
+        "U",
+        "v",
+        "V",
+        "w",
+        "W",
+        "x",
+        "X",
+        "y",
+        "Y",
+        "z",
+        "Z",
+        "\n",
+        "<",
+        ">",
+        "(",
+        ")",
+        "{",
+        "}",
+        "+",
+        "-",
+        "'",
+        "`",
+        "´",
+        '"',
+        "º",
+        "ª",
+        "@",
+        ".",
+        ",",
+        ":",
+        ";",
+        "0",
+        "1",
+        "2",
+        "3",
+        "4",
+        "5",
+        "6",
+        "7",
+        "8",
+        "9",
+        " ",
+        "á",
+        "Á",
+        "é",
+        "É",
+        "í",
+        "Í",
+        "ó",
+        "Ó",
+        "ú",
+        "Ú",
+        "a",
+        "A",
+        "b",
+        "B",
+        "c",
+        "C",
+        "d",
+        "D",
+        "e",
+        "E",
+        "f",
+        "F",
+        "g",
+        "G",
+        "h",
+        "H",
+        "i",
+        "I",
+        "j",
+        "J",
+        "k",
+        "K",
+        "l",
+        "L",
+        "m",
+        "M",
+        "n",
+        "N",
+        "ñ",
+        "Ñ",
+        "o",
+        "O",
+        "p",
+        "P",
+        "q",
+        "Q",
+        "r",
+        "R",
+        "s",
+        "S",
+        "t",
+        "T",
+        "u",
+        "U",
+        "v",
+        "V",
+        "w",
+        "W",
+        "x",
+        "X",
+        "y",
+        "Y",
+        "z",
+        "Z",
+        "\n",
+      ];
+
+      const encrypted = [
+        "⍫",
+        "⎋",
+        "Ꝧ",
+        "Ꝩ",
+        "Ꝫ",
+        "Ꝭ",
+        "Ꝓ",
+        "Ϙ",
+        "Ϟ",
+        "Ϡ",
+        "Ԓ",
+        "Ꝋ",
+        "Ꜿ",
+        "Ꝯ",
+        "θ",
+        "λ",
+        "ψ",
+        "ω",
+        "π",
+        "ä",
+        "ö",
+        "ü",
+        "ß",
+        "ç",
+        "ş",
+        "ğ",
+        "μ",
+        "δ",
+        "φ",
+        "б",
+        "ф",
+        "и",
+        "с",
+        "в",
+        "у",
+        "а",
+        "п",
+        "р",
+        "ш",
+        "о",
+        "л",
+        "ב",
+        "д",
+        "ג",
+        "ь",
+        "د",
+        "т",
+        "ر",
+        "ж",
+        "س",
+        "щ",
+        "ش",
+        "з",
+        "ص",
+        "й",
+        "đ",
+        "к",
+        "ơ",
+        "ы",
+        "ư",
+        "е",
+        "ẁ",
+        "г",
+        "א",
+        "м",
+        "∅",
+        "ц",
+        "∈",
+        "ч",
+        "ℵ",
+        "н",
+        "ℏ",
+        "я",
+        "∂",
+        "ѧ",
+        "Қ",
+        "Җ",
+        "Ң",
+        "Ү",
+        "Һ",
+        "Ө",
+        "Ӏ",
+        "ჯ",
+        "ჶ",
+        "Ꮘ",
+        "ꜧ",
+        "ꝑ",
+        "ꞓ",
+        "ꞙ",
+        "ꭣ",
+        "ꮧ",
+        "ꬽ",
+        "ꝸ",
+        "⨅",
+        "Ꞙ",
+        "⍫",
+        "⎋",
+        "Ꝧ",
+        "Ꝩ",
+        "Ꝫ",
+        "Ꝭ",
+        "Ꝓ",
+        "Ϙ",
+        "Ϟ",
+        "Ϡ",
+        "Ԓ",
+        "Ꝋ",
+        "Ꜿ",
+        "Ꝯ",
+        "θ",
+        "λ",
+        "ψ",
+        "ω",
+        "π",
+        "ä",
+        "ö",
+        "ü",
+        "ß",
+        "ç",
+        "ş",
+        "ğ",
+        "μ",
+        "δ",
+        "φ",
+        "б",
+        "ф",
+        "и",
+        "с",
+        "в",
+        "у",
+        "а",
+        "п",
+        "р",
+        "ш",
+        "о",
+        "л",
+        "ב",
+        "д",
+        "ג",
+        "ь",
+        "د",
+        "т",
+        "ر",
+        "ж",
+        "س",
+        "щ",
+        "ش",
+        "з",
+        "ص",
+        "й",
+        "đ",
+        "к",
+        "ơ",
+        "ы",
+        "ư",
+        "е",
+        "ẁ",
+        "г",
+        "א",
+        "м",
+        "∅",
+        "ц",
+        "∈",
+        "ч",
+        "ℵ",
+        "н",
+        "ℏ",
+        "я",
+        "∂",
+        "ѧ",
+        "Қ",
+        "Җ",
+        "Ң",
+        "Ү",
+        "Һ",
+        "Ө",
+        "Ӏ",
+        "ჯ",
+        "ჶ",
+        "Ꮘ",
+        "ꜧ",
+        "ꝑ",
+        "ꞓ",
+        "ꞙ",
+        "ꭣ",
+        "ꮧ",
+        "ꬽ",
+        "ꝸ",
+        "⨅",
+        "Ꞙ",
+      ];
+
+      function runContrasena() {
+        let output = document.getElementById("output");
+        output.innerHTML = "";
+        let originalLog = console.log;
+        console.log = function (...args) {
+          output.innerHTML += args.join(" ") + "\n";
+          originalLog.apply(console, args);
+        };
+        main();
+        console.log = originalLog;
+      }
+
+      function runProcessList() {
+        let output = document.getElementById("output");
+        output.innerHTML = "";
+        let originalLog = console.log;
+        console.log = function (...args) {
+          output.innerHTML += args.join(" ") + "\n";
+          originalLog.apply(console, args);
+        };
+        const lista = [
+          "L",
+          "a",
+          "_",
+          "c",
+          "a",
+          "s",
+          "a",
+          "_",
+          "d",
+          "e",
+          "_",
+          "p",
+          "e",
+          "d",
+          "r",
+          "o",
+          "_",
+          "e",
+          "s",
+          "_",
+          "b",
+          "o",
+          "n",
+          "i",
+          "t",
+          "a",
+        ];
+        const lista1 = lista.filter((_, index) => index % 2 === 0);
+        const lista2 = lista.filter((_, index) => index % 2 !== 0);
+        function dividirLista(lista) {
+          const mitad = Math.ceil(lista.length / 2);
+          return [lista.slice(0, mitad), lista.slice(mitad)];
+        }
+        const [lista1_1, lista1_2] = dividirLista(lista1);
+        const [lista2_1, lista2_2] = dividirLista(lista2);
+        function listaAOracion(lista) {
+          return lista.map((char) => (char === "_" ? " " : char)).join("");
+        }
+        const resultado =
+          listaAOracion(lista1_1) + " " + listaAOracion(lista2_1);
+        console.log(resultado);
+        console.log = originalLog;
+      }
+
+      function encryptText() {
+        const text = document.getElementById("inputText").value;
+        if (!text.trim()) {
+          alert("Por favor, ingresa texto para encriptar.");
+          return;
+        }
+        const arrPhrase = text.split("");
+        let num = 0;
+        const random = Math.floor(Math.random() * 500) / 100 + 3;
+        let listEncrypted = [];
+        arrPhrase.forEach((letter) => {
+          num += random;
+          let index = letters.indexOf(letter);
+          if (index === -1) return;
+          index = index + Math.floor(num);
+          if (index > 94) {
+            num = 0;
+            index = index + Math.floor(num);
+          }
+          if (index >= encrypted.length) index = index % encrypted.length;
+          const encryptedLetter = encrypted[index];
+          listEncrypted.push(encryptedLetter);
+        });
+        listEncrypted.push(random.toFixed(2));
+        const encryptedText = listEncrypted.join("");
+        document.getElementById("encryptedOutput").innerHTML = encryptedText;
+      }
+
+      function decryptText() {
+        const phrase = document.getElementById("decryptInput").value;
+        const password = document.getElementById("password").value;
+        if (!phrase.trim()) {
+          alert("Por favor, ingresa texto encriptado para desencriptar.");
+          return;
+        }
+        const arrPhraseEncrypted = phrase.split("");
+        const baseNum = arrPhraseEncrypted.splice(-4).join("");
+        const randomNum = parseFloat(baseNum);
+        let num = 0;
+        let listDesEncrypted = [];
+        arrPhraseEncrypted.forEach((character) => {
+          num += randomNum;
+          let index = encrypted.indexOf(character);
+          index = index - Math.floor(num);
+          if (index < 0) {
+            num = 0;
+            index = letters.length + Math.floor(num) + index;
+          }
+          if (index >= letters.length) index = index % letters.length;
+          const desEncryptedLetter = letters[index];
+          listDesEncrypted.push(desEncryptedLetter);
+        });
+        const wordJoined = listDesEncrypted.join("");
+        document.getElementById("decryptedOutput").innerHTML = wordJoined;
+      }
+    </script>
+  </body>
+</html>
